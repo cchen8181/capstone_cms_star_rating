@@ -189,8 +189,8 @@ if st.session_state.page == 'Star Rating Explorer':
 
     df = load_data("data/visualization_data.csv")
     
-    min_year = df['year'].min()
-    max_year = df['year'].max()
+    min_year = int(df['year'].min())
+    max_year = int(df['year'].max())
     
     #pick the year
     year = st.sidebar.slider("Year", min_value = min_year, max_value = max_year, value=max_year,
