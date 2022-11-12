@@ -501,8 +501,8 @@ elif st.session_state.page == 'Contract Star Details':
     df = load_data("data/visualization_data_contract_details.csv")
     df_cutpoints = load_data("data/visualization_data_cutpoints.csv")
     
-    min_year = df['year'].min()
-    max_year = df['year'].max()
+    min_year = int(df['year'].min())
+    max_year = int(df['year'].max())
     #pick the year
     year = st.sidebar.slider("Year", min_value = min_year, max_value = max_year, value=max_year,
         help="Select the year you want to view the Star Ratings for.")
