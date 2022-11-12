@@ -3,5 +3,4 @@ numpy
 pandas
 plotly
 matplotlib
-base64
 scipy
