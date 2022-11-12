@@ -536,7 +536,7 @@ elif st.session_state.page == 'Contract Star Details':
     contracts = df_filtered[['contract_id','contract_name']].drop_duplicates()
     contracts_list = contracts['contract_id'] + ' - ' + contracts['contract_name']
     
-    select_contract = st.sidebar.selectbox('Select Contract', contracts_list, value='H5216 - HUMANA INSURANCE COMPANY', key='3', index=0,
+    select_contract = st.sidebar.selectbox('Select Contract', contracts_list, index='H5216 - HUMANA INSURANCE COMPANY', key='3', index=0,
         help="Select the contract.")
     
     contract = select_contract.split(' - ')[0]
