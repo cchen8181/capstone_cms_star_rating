@@ -691,6 +691,9 @@ elif st.session_state.page == 'Contract Star Details':
             message = key + " = " + str(st.session_state.measures[key])
             st.markdown(message)
     
+    #clear and reset all simulated values
+    st.button('Clear and Reset Simulated Measures', on_click=clear_simulation, key='Reset simulated value')
+    
     #calculate simulated  star rating
     st.markdown("**Calculations**")
     
@@ -737,8 +740,7 @@ elif st.session_state.page == 'Contract Star Details':
         st.markdown("Plan does not have enough data to receive overall and summary stars")
     
     
-    #clear and reset all simulated values
-    st.button('Clear and Reset', on_click=clear_simulation, key='Reset simulated value')
+
     
     
     ##### measure specific info
