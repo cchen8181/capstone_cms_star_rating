@@ -193,7 +193,7 @@ if st.session_state.page == 'Star Rating Explorer':
     max_year = int(df['year'].max())
     
     #pick the year
-    year = st.sidebar.slider("Year", min_value = min_year, max_value = max_year, value=max_year,
+    year = st.sidebar.slider("Year", min_value = min_year, max_value = max_year, value = max_year,
         help="Select the year you want to view the Star Ratings for.")
         
     #pick the plan type
@@ -252,6 +252,8 @@ if st.session_state.page == 'Star Rating Explorer':
     - The size of the box corresponds to the number of enrollments for the contract
     - The color of the box represents the star rating assigned to the contract, using whichever is first available out of overall, Part C, and Part D star rating.
     - Each contract is organized under their parent organization
+      - The color and size of the parent organization's box  will reflect the average color and the sum of enrollment size from contracts under the organization.
+      - Hovering over a parent organization will be missing all information besides enrollment number, since those details are not available at the organization level. As a result, the other fields will appear as "?"
     - Hovering over the contract will reveal additional details
       - Full name of the contract
       - Marketing name
@@ -266,6 +268,8 @@ if st.session_state.page == 'Star Rating Explorer':
 elif st.session_state.page == 'Star Measure Details (2022)':
     st.markdown("""
     This page allows you to view the detailed documentation of the each measure for the year 2022.
+    
+    Note: PDFs may not always display correctly depending on the browser you are using.
     """)
     measure_to_pdf = {
         "C01: Breast Cancer Screening": "HED-BCS.pdf",
@@ -324,7 +328,9 @@ elif st.session_state.page == 'Star Measure Details (2022)':
 ### start of page for Correlations dashboard 
 elif st.session_state.page == 'Correlations Dashboard':
     st.markdown("""
-    This page of allows you to view how a specific measure correlates with additional data sources gathered for this project. Select the desired measure in the sidebar and then toggle the groups of data sources to show correlation plots.
+    This page of shows how a specific measure correlates with additional data sources for the purpose of identifying significant correlations that could be used as predictors in machine learning models. Select the desired measure in the sidebar and then toggle the groups of data sources to show correlation plots.
+    
+    The Y axis are the selected measure's scores, while the X axis are the additional predictor's values. For predictors only available at the state level, the Y axis is the weighted average of all contracts in each state based on the contract's enrollment size in each state.
     """)
     df = load_data("data/visualization_data_correlations.csv")
 
@@ -536,7 +542,7 @@ elif st.session_state.page == 'Contract Star Details':
     contracts = df_filtered[['contract_id','contract_name']].drop_duplicates()
     contracts_list = contracts['contract_id'] + ' - ' + contracts['contract_name']
     
-    select_contract = st.sidebar.selectbox('Select Contract', contracts_list, index = 0, key='3',
+    select_contract = st.sidebar.selectbox('Select Contract', contracts_list, key='3', index=0,
         help="Select the contract.")
     
     contract = select_contract.split(' - ')[0]
@@ -729,7 +735,8 @@ elif st.session_state.page == 'Contract Star Details':
     
     #clear and reset all simulated values
     st.button('Clear and Reset', on_click=clear_simulation, key='Reset simulated value')
-   
+    
+    
     ##### measure specific info
     df_contract_measure = df[(df['contract_id'] == contract) & (df['measure'] == measure)]
     
