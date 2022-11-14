@@ -683,9 +683,13 @@ elif st.session_state.page == 'Contract Star Details':
     
     # display all currently simulated measures
     st.markdown("**Simulating the following measure changes**")
-    for key in st.session_state.measures.keys():
-        message = key + " = " + str(st.session_state.measures[key])
-        st.markdown(message)
+    
+    if len(st.session_state.measures.keys()) == 0:
+        st.markdown("No measure changes currently selected")
+    else:
+        for key in st.session_state.measures.keys():
+            message = key + " = " + str(st.session_state.measures[key])
+            st.markdown(message)
     
     #calculate simulated  star rating
     st.markdown("**Calculations**")
